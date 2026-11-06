@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intrusion Detection Using Snort 3 IDS | Sanjith S</title>
+  <meta name="description" content="Custom Snort 3 rules that detect controlled SSH and FTP brute-force activity, validated through alerts and security logs.">
+  <meta name="theme-color" content="#0a0e13">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0e13'/%3E%3Cpath d='M7 10l7 6-7 6' stroke='%233ddc84' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 23h8' stroke='%234cc9f0' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html" aria-label="Sanjith S, home"><span class="host">sanjith</span><span class="at">@</span>portfolio<span class="cur">_</span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects" aria-current="page">projects</a></li>
+        <li><a href="../index.html#skills">skills</a></li>
+        <li><a href="../index.html#experience">experience</a></li>
+        <li><a href="../index.html#credentials">credentials</a></li>
+        <li><a href="../index.html#learning">learning</a></li>
+        <li><a href="../index.html#contact">contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="cs-hero">
+      <div class="container">
+        <div class="crumbs"><a href="../index.html">home</a> / <a href="../index.html#projects">projects</a> / snort-ids</div>
+        <p class="section-label">case study 02 / 05</p>
+        <h1>Intrusion Detection Using Snort 3 IDS</h1>
+        <p class="summary">Custom Snort 3 rules that detect controlled SSH and FTP brute-force activity, validated through alerts and security logs.</p>
+        <dl class="cs-meta">
+          <div><dt>Category</dt><dd>Network intrusion detection and alert validation</dd></div>
+          <div><dt>Year</dt><dd>2026</dd></div>
+          <div><dt>Repository</dt><dd>Public on GitHub</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">Snort 3</span><span class="chip">Hydra</span><span class="chip">Linux</span><span class="chip">SSH</span><span class="chip">FTP</span></div>
+      </div>
+    </div>
+
+    <div class="container cs-layout">
+      <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#overview">Project overview</a></li><li><a href="#problem">Problem statement</a></li><li><a href="#objective">Objective</a></li><li><a href="#tech">Technologies and tools</a></li><li><a href="#architecture">System architecture</a></li><li><a href="#method">Implementation methodology</a></li><li><a href="#workflow">Detection / testing workflow</a></li><li><a href="#results">Results and validation</a></li><li><a href="#learning">Challenges and learning</a></li><li><a href="#evidence">Screenshots and evidence</a></li><li><a href="#repo">Repository</a></li></ol></nav>
+      <div class="cs-main">
+<section id="overview" aria-labelledby="overview-h"><h2 id="overview-h"><span class="n">01</span>Project overview</h2>
+<p>I configured Snort 3 as an intrusion detection system on Linux, wrote custom detection rules for suspicious SSH and FTP authentication activity, generated controlled brute-force traffic with Hydra, and validated that the rules produced alerts and security log entries.</p>
+<p>SSH was configured on a non-default port. The workflow covers intrusion detection, traffic analysis, event logging and investigation.</p>
+</section>
+
+<section id="problem" aria-labelledby="problem-h"><h2 id="problem-h"><span class="n">02</span>Problem statement</h2>
+<p>SSH and FTP are common targets for credential guessing. A SOC analyst needs detections that turn a flood of failed authentication attempts into an alert that can be triaged. Out-of-the-box rule sets do not always match a specific environment (for example a service on a non-default port), so custom rules and proof that they fire are needed.</p>
+</section>
+
+<section id="objective" aria-labelledby="objective-h"><h2 id="objective-h"><span class="n">03</span>Objective</h2>
+<p>Configure network monitoring and custom rules to identify suspicious authentication activity targeting SSH and FTP, and validate that the detections work.</p>
+</section>
+
+<section id="tech" aria-labelledby="tech-h"><h2 id="tech-h"><span class="n">04</span>Technologies and tools</h2>
+<table class="tech-table"><thead><tr><th>Tool</th><th>Use</th></tr></thead><tbody>
+<tr><td>Snort 3</td><td>Network IDS engine inspecting raw traffic and matching rules</td></tr>
+<tr><td>Custom rules</td><td>Detection of SSH and FTP authentication abuse (SIDs 1000006 &amp; 1000008)</td></tr>
+<tr><td>Hydra</td><td>Generating controlled brute-force traffic in an isolated lab environment</td></tr>
+<tr><td>Linux</td><td>Host platform for sensor, services, and analysis</td></tr>
+<tr><td>SSH (port 2222)</td><td>Monitored service configured on a non-default port</td></tr>
+<tr><td>FTP (port 21)</td><td>Monitored file transfer service</td></tr>
+</tbody></table>
+</section>
+
+<section id="architecture" aria-labelledby="architecture-h"><h2 id="architecture-h"><span class="n">05</span>System architecture</h2>
+<p>The network diagram below illustrates the test environment setup where traffic from the attacking host passes through the Snort 3 network inspection sensor to reach target services.</p>
+<div class="diagram" role="img" aria-label="Architecture illustration: attacker host runs Hydra against SSH and FTP services; Snort 3 monitors traffic, matches custom rules and writes alerts and logs for analyst review.">
+  <div class="cap">ARCHITECTURE ILLUSTRATION · Lab network topology for intrusion detection</div>
+  <div class="flow">
+    <div class="node"><b>Test Host</b>192.168.1.28 (Hydra simulation)</div><span class="arrow" aria-hidden="true">→</span>
+    <div class="node"><b>Target Services</b>SSH (port 2222) · FTP (port 21) on 192.168.1.9</div><span class="arrow" aria-hidden="true">→</span>
+    <div class="node alt"><b>Snort 3 Sensor</b>Custom rule matching (SIDs 1000006 / 1000008)</div><span class="arrow" aria-hidden="true">→</span>
+    <div class="node alt"><b>Security Alerts</b>Real-time console alert logs &amp; packet metadata</div>
+  </div>
+</div>
+</section>
+
+<section id="method" aria-labelledby="method-h"><h2 id="method-h"><span class="n">06</span>Implementation methodology</h2>
+<ol class="steps">
+<li>Set up Snort 3 on Linux and configure listening network interfaces to inspect incoming local network traffic.</li>
+<li>Deploy test services: configure SSH on a custom non-default port (port 2222) and standard FTP (port 21) on the target host (192.168.1.9).</li>
+<li>Write custom detection rules specifying protocols, port definitions, flow direction, and thresholds for high-frequency connection attempts.</li>
+<li>Configure alert outputs and logging to capture fast-pattern alert lines and raw TCP/IP header details.</li>
+<li>Simulate controlled dictionary attacks using Hydra from the attack test host (192.168.1.28).</li>
+<li>Validate rule triggers and examine alert logs to verify accurate source IP, destination port, timestamp, and signature matching.</li>
+</ol>
+</section>
+
+<section id="workflow" aria-labelledby="workflow-h"><h2 id="workflow-h"><span class="n">07</span>Detection / testing workflow</h2>
+<ol class="steps">
+<li><strong>Generate:</strong> Hydra launches rapid authentication attempts against FTP (port 21) and SSH (port 2222) on target host 192.168.1.9.</li>
+<li><strong>Inspect:</strong> Snort 3 decodes TCP segments, tracks session handshakes, and compares traffic patterns against custom rule criteria.</li>
+<li><strong>Alert:</strong> When attack thresholds are met, Snort emits real-time alert records containing SID, revision number, rule description, source/destination IP, and port bindings.</li>
+<li><strong>Investigate:</strong> The analyst inspects terminal alert output, correlates TCP sequence numbers and flags, and verifies that no benign traffic is inappropriately classified.</li>
+</ol>
+</section>
+
+<section id="results" aria-labelledby="results-h"><h2 id="results-h"><span class="n">08</span>Results and validation</h2>
+<p>The custom Snort 3 detection rules were validated in live terminal runs against controlled Hydra simulations:</p>
+<ul>
+<li><strong>FTP Brute-Force Alert Validation:</strong> Custom rule SID <code>1000008:1</code> triggered immediately upon detecting rapid authentication bursts, generating log alerts: <code>[**] [1:1000008:1] "FTP Brute Force Attack Detected" [**]</code> for connections between <code>192.168.1.28</code> and <code>192.168.1.9:21</code>.</li>
+<li><strong>SSH Brute-Force Alert Validation (Non-Standard Port):</strong> Custom rule SID <code>1000006:1</code> fired consistently for connections targeting non-default port 2222, generating alerts: <code>[**] [1:1000006:1] "Possible SSH Brute Force Attack" [**]</code> for traffic from <code>192.168.1.28</code> to <code>192.168.1.9:2222</code>.</li>
+<li><strong>Fidelity:</strong> Both rules successfully isolated rapid brute-force connection streams while preserving full TCP header data (IP ID, window size, TCP options) for subsequent forensic triage.</li>
+</ul>
+</section>
+
+<section id="learning" aria-labelledby="learning-h"><h2 id="learning-h"><span class="n">09</span>Challenges and learning</h2>
+<ul>
+<li><strong>Port Independence in Detection:</strong> Real-world adversaries frequently scan and attack services moved to non-standard ports (such as SSH on port 2222). Rules must be engineered to detect protocol anomalies or specified port ranges rather than assuming default ports.</li>
+<li><strong>Threshold Tuning:</strong> Balancing alert sensitivity to detect automated credential stuffing while preventing false positives from intermittent legitimate login failures.</li>
+<li><strong>Correlating Log Telemetry:</strong> Connecting Snort alerts directly to packet attributes and authentication failure patterns constitutes the core workflow of effective SOC alert triage.</li>
+</ul>
+</section>
+
+<section id="evidence" aria-labelledby="evidence-h"><h2 id="evidence-h"><span class="n">10</span>Screenshots and evidence</h2>
+<p>The following terminal captures verify live alert generation from custom Snort 3 rules during simulated brute-force testing.</p>
+
+<div class="evidence-grid">
+  <figure class="evidence-card">
+    <div class="evidence-img-wrap">
+      <img src="../assets/screenshots/snort-ftp-brute-force-detection.png" alt="Terminal output showing Snort 3 FTP Brute Force Attack Detected alerts" width="800" height="450" loading="lazy">
+    </div>
+    <figcaption>
+      <div class="evidence-header">
+        <span class="evidence-tag">EVIDENCE 01</span>
+        <span class="evidence-hint">Click image to enlarge</span>
+      </div>
+      <span class="evidence-title">Snort 3 Alert Output — FTP Brute Force Detection (SID 1000008)</span>
+      <p>Terminal output on <code>snort@snort:~</code> demonstrating custom Snort 3 rule (SID 1000008, rev 1) firing in real time: <code>"FTP Brute Force Attack Detected"</code>. Logs capture repeated TCP connection bursts from attacking host 192.168.1.28 to FTP server 192.168.1.9 on port 21.</p>
+    </figcaption>
+  </figure>
+
+  <figure class="evidence-card">
+    <div class="evidence-img-wrap">
+      <img src="../assets/screenshots/snort-ssh-brute-force-detection.png" alt="Terminal output showing Snort 3 Possible SSH Brute Force Attack alerts on port 2222" width="800" height="450" loading="lazy">
+    </div>
+    <figcaption>
+      <div class="evidence-header">
+        <span class="evidence-tag">EVIDENCE 02</span>
+        <span class="evidence-hint">Click image to enlarge</span>
+      </div>
+      <span class="evidence-title">Snort 3 Alert Output — SSH Brute Force on Port 2222 (SID 1000006)</span>
+      <p>Real-time alert output validating detection of an automated Hydra SSH brute-force attack: <code>"Possible SSH Brute Force Attack"</code> (SID 1000006, rev 1). Validates rule inspection against non-standard service port 2222 (traffic: <code>192.168.1.28 -> 192.168.1.9:2222</code>).</p>
+    </figcaption>
+  </figure>
+</div>
+
+<div class="callout safe"><strong class="label">Lab Isolation</strong><p>All network traffic, simulated attacks, and packet captures were conducted in an isolated private test network (192.168.1.0/24). No production systems or unauthorized hosts were targeted.</p></div>
+</section>
+
+<section id="repo" aria-labelledby="repo-h"><h2 id="repo-h"><span class="n">11</span>Repository</h2>
+<div class="repo-box">
+  <div>
+    <strong>GitHub repository</strong>
+    <div class="url">https://github.com/Sanjith1236/Snort-3-IDS-SSH-FTP-Brute-Force-Attack-Detection</div>
+  </div>
+  <a class="btn primary" href="https://github.com/Sanjith1236/Snort-3-IDS-SSH-FTP-Brute-Force-Attack-Detection" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a>
+</div>
+</section>
+
+      </div>
+    </div>
+    <nav class="container pager" aria-label="Other projects"><a class="prev" href="honeypot.html"><small>← previous</small>AI-Assisted-Cyber-Deception-Security-Monitoring-Threat-Intelligence-Platform</a><a class="next" href="clamav.html"><small>next →</small>Malware Analysis and Detection Using ClamAV</a></nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>&copy; <span id="year">2026</span> Sanjith S</span>
+      <a href="../index.html#contact">contact</a>
+      <a href="#main">back to top ↑</a>
+    </div>
+  </footer>
+  <script src="../js/script.js"></script>
+</body>
+</html>
