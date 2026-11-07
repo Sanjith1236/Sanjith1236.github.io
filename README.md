@@ -72,3 +72,5 @@ python -m http.server 8000
 ## Public evidence handling
 
 Screenshots containing target identifiers, account details, session material, reset tokens, source IPs or browser fingerprint identifiers have been blurred in the public portfolio copy. Keep original unredacted evidence private and do not commit it to a public repository.
+
+Portfolio deployment update
