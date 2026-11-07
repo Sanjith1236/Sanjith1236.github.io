@@ -73,4 +73,10 @@ python -m http.server 8000
 
 Screenshots containing target identifiers, account details, session material, reset tokens, source IPs or browser fingerprint identifiers have been blurred in the public portfolio copy. Keep original unredacted evidence private and do not commit it to a public repository.
 
-Portfolio deployment update
+---
+
+## 🌐 Live Portfolio
+
+Explore my cybersecurity portfolio, hands-on projects, technical skills, and professional profile.
+
+**[Visit My Cybersecurity Portfolio](https://sanjith1236.github.io/)**
