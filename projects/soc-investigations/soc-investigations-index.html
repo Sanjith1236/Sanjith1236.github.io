@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOC Investigations | Sanjith S</title>
+  <meta name="description" content="SOC Analyst Level 1 learning progress, SIEM use cases, and practical security investigation topics by Sanjith S.">
+  <meta name="theme-color" content="#0a0e13">
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .soc-hero {
+      padding: clamp(38px, 6vw, 68px) 0 34px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(61,220,132,.045), transparent);
+    }
+    .soc-hero h1 {
+      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+    .soc-hero .summary { color: var(--muted); max-width: 74ch; font-size: 1.04rem; }
+    .crumbs {
+      font-family: var(--mono);
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .crumbs a { color: var(--muted); text-decoration: none; }
+    .crumbs a:hover { color: var(--green); }
+    .soc-section { padding: clamp(42px, 6vw, 68px) 0; }
+    .progress-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(220px, .8fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+    .progress-number {
+      color: var(--green);
+      font: 700 clamp(2rem, 5vw, 3rem)/1.1 var(--mono);
+      margin: 8px 0;
+    }
+    .progress-track {
+      height: 8px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 16px 0 8px;
+    }
+    .progress-track span {
+      display: block;
+      width: 23.08%;
+      height: 100%;
+      background: var(--green);
+    }
+    .progress-note { color: var(--muted); font-size: .86rem; }
+    .topic-card { height: 100%; display: flex; flex-direction: column; }
+    .topic-card h3 { color: var(--cyan); }
+    .topic-card p { color: var(--muted); }
+    .topic-card .chips { margin-top: auto; padding-top: 10px; }
+    .case-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .case-item {
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .case-item h3 { font-size: 1rem; margin-bottom: 6px; }
+    .case-item p { color: var(--muted); font-size: .9rem; margin: 0; }
+    .case-item .meta { color: var(--green); font: .74rem var(--mono); margin-bottom: 7px; }
+    .notice {
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--amber);
+      border-radius: 6px;
+      padding: 14px 18px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: 20px;
+    }
+    .notice strong { color: var(--amber); font-family: var(--mono); }
+    .back-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    @media (max-width: 760px) {
+      .progress-panel { grid-template-columns: 1fr; }
+      .case-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="../../index.html" aria-label="Sanjith S portfolio homepage">
+        <span class="host">sanjith</span><span class="at">@</span>portfolio<span class="cur">_</span>
+      </a>
+      <a class="btn" href="../../index.html">← Back to portfolio</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="soc-hero">
+      <div class="container">
+        <div class="crumbs"><a href="../../index.html">~/portfolio</a> / projects / soc-investigations</div>
+        <p class="section-label">security-operations / learning-log</p>
+        <h1>SOC Analyst <span style="color:var(--green)">Investigations</span></h1>
+        <p class="summary">
+          A structured record of my SOC Analyst Level 1 learning, platform-based exercises,
+          investigation topics, and technical notes. This section will grow as I review each
+          exercise and publish its supporting evidence.
+        </p>
+        <div class="back-row">
+          <a class="btn primary" href="#siem-use-cases">Explore SIEM use cases</a>
+          <a class="btn" href="https://infoseclabs.io/user/sanjith" target="_blank" rel="noopener noreferrer">InfoSecLabs profile ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="soc-section" aria-labelledby="progress-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">path-status</p>
+          <h2 id="progress-title">SOC Analyst Level 1 learning path</h2>
+          <p class="lead">Progress is shown separately from the wider set of topics and activities recorded on my learning profile.</p>
+        </div>
+
+        <div class="progress-panel">
+          <div class="card">
+            <span class="tag-status">IN PROGRESS</span>
+            <div class="progress-number">3 modules completed</div>
+            <p style="color:var(--muted); margin-bottom:0">
+              The formal SOC Analyst Level 1 path is ongoing. I will update this section as I complete and review the remaining modules.
+            </p>
+            <p class="progress-note" style="margin-top:14px">The remaining modules are still in progress. The page will be updated as each one is completed.</p>
+          </div>
+          <div class="card">
+            <p class="section-label">training-platform</p>
+            <h3>InfoSecLabs</h3>
+            <p style="color:var(--muted)">Platform profile and activity record for my hands-on SOC learning.</p>
+            <a class="btn" href="https://infoseclabs.io/user/sanjith" target="_blank" rel="noopener noreferrer">View learning profile ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="soc-section" id="siem-use-cases" aria-labelledby="use-cases-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">siem / detection-scenarios</p>
+          <h2 id="use-cases-title">SIEM use cases</h2>
+          <p class="lead">Five investigation scenarios recorded in my InfoSecLabs activity. Individual case-study write-ups will be linked here after reviewing the exercise evidence.</p>
+        </div>
+
+        <div class="case-list">
+          <article class="case-item">
+            <div class="meta">USE CASE 01</div>
+            <h3>Brute Force Attack</h3>
+            <p>Investigating repeated authentication failures and identifying suspicious login activity.</p>
+          </article>
+          <article class="case-item">
+            <div class="meta">USE CASE 02</div>
+            <h3>Malware Beaconing</h3>
+            <p>Examining recurring network communication patterns that may indicate beaconing behaviour.</p>
+          </article>
+          <article class="case-item">
+            <div class="meta">USE CASE 03</div>
+            <h3>Impossible Travel</h3>
+            <p>Reviewing sign-in activity for geographically inconsistent access patterns.</p>
+          </article>
+          <article class="case-item">
+            <div class="meta">USE CASE 04</div>
+            <h3>Privilege Escalation</h3>
+            <p>Reviewing activity that may indicate an account or process gaining elevated privileges.</p>
+          </article>
+          <article class="case-item">
+            <div class="meta">USE CASE 05</div>
+            <h3>DNS Tunneling</h3>
+            <p>Examining DNS activity for patterns that may suggest covert data communication.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <strong>REPORT STATUS</strong>
+          <p style="margin:5px 0 0">These are learning-platform exercises, not claims of professional SOC incident handling. Detailed reports will be published only after the original lab steps, findings, and evidence have been checked.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="soc-section" id="learning-areas" aria-labelledby="areas-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">learning-areas</p>
+          <h2 id="areas-title">Additional SOC learning topics</h2>
+          <p class="lead">Topics appearing in my platform activity and training notes. These categories are used to organize future technical write-ups; they do not indicate that every topic or module in the full learning path is complete.</p>
+        </div>
+
+        <div class="grid cols-2">
+          <article class="card topic-card">
+            <h3>SIEM fundamentals &amp; log analysis</h3>
+            <p>SIEM concepts, log sources and ingestion, parsing and normalization, correlation, and search/query fundamentals.</p>
+            <div class="chips"><span class="chip">Log Sources</span><span class="chip">Wazuh</span><span class="chip">ELK</span><span class="chip">SPL</span></div>
+          </article>
+
+          <article class="card topic-card">
+            <h3>MITRE ATT&amp;CK</h3>
+            <p>Understanding tactics and techniques, navigating the ATT&amp;CK matrix, and using the framework to think about defensive coverage.</p>
+            <div class="chips"><span class="chip">Tactics</span><span class="chip">Techniques</span><span class="chip">Defensive Mapping</span></div>
+          </article>
+
+          <article class="card topic-card">
+            <h3>EDR investigations</h3>
+            <p>Endpoint telemetry, process-tree analysis, memory-injection concepts, and infected-host isolation workflows.</p>
+            <div class="chips"><span class="chip">Telemetry</span><span class="chip">Process Trees</span><span class="chip">Endpoint Response</span></div>
+          </article>
+
+          <article class="card topic-card">
+            <h3>Detection engineering</h3>
+            <p>Detection fundamentals, Sigma rules, detection-as-code concepts, and identifying suspicious lateral movement.</p>
+            <div class="chips"><span class="chip">Sigma</span><span class="chip">Detection Rules</span><span class="chip">Lateral Movement</span></div>
+          </article>
+
+          <article class="card topic-card">
+            <h3>Email security &amp; phishing</h3>
+            <p>Phishing and spear-phishing concepts, URL analysis, and the investigation clues used during email triage.</p>
+            <div class="chips"><span class="chip">URL Analysis</span><span class="chip">Phishing Triage</span></div>
+          </article>
+
+          <article class="card topic-card">
+            <h3>Vulnerability management</h3>
+            <p>Understanding vulnerabilities, CVSS scoring, and prioritizing patches based on risk.</p>
+            <div class="chips"><span class="chip">CVE</span><span class="chip">CVSS</span><span class="chip">Patch Prioritization</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soc-section" aria-labelledby="approach-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">documentation-method</p>
+          <h2 id="approach-title">How each investigation will be documented</h2>
+          <p class="lead">Each detailed report will be based on the actual exercise and evidence, rather than a generic description of the attack.</p>
+        </div>
+        <div class="card">
+          <ol class="plain-list">
+            <li><strong>Objective &amp; scenario</strong> — what the exercise asks us to investigate.</li>
+            <li><strong>Evidence</strong> — relevant logs, alerts, screenshots, queries, or rule output.</li>
+            <li><strong>Investigation</strong> — the steps actually performed during the lab.</li>
+            <li><strong>Findings</strong> — what the available evidence supports.</li>
+            <li><strong>Response &amp; lessons learned</strong> — suitable actions and key takeaways.</li>
+            <li><strong>MITRE ATT&amp;CK mapping</strong> — included only when the technique is supported by the scenario.</li>
+          </ol>
+        </div>
+        <div class="back-row">
+          <a class="btn primary" href="../../index.html">← Return to main portfolio</a>
+          <a class="btn" href="https://github.com/Sanjith1236" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>&copy; <span id="year">2026</span> Sanjith S</span>
+      <span>SOC learning &amp; investigation notes</span>
+      <a href="#main">back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
